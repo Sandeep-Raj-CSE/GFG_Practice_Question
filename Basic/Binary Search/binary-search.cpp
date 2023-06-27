@@ -14,22 +14,11 @@ class Solution {
         // code here
         
         
-        // start
+        // int ind=lower_bound(arr,arr+n,k)-arr;
+        // return ind;
         
-        int start=0;
-        
-        int end= n-1;
-        
-        while(start<=end){
-            int mid=start+(end-start)/2;
-            
-            if(arr[mid]==k){
-                return mid;
-            }else if(arr[mid] > k){
-                end=mid-1;
-            }else{
-                start=mid+1;
-            }
+        if(binary_search(arr,arr+n,k)){
+            return lower_bound(arr,arr+n,k)-arr;
         }
         
         return -1;
