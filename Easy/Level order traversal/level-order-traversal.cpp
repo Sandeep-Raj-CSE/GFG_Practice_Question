@@ -40,52 +40,37 @@ struct Node
 
 class Solution
 {
+    void level(Node* root,vector<int>&ans){
+       // if(root==NULL)
+        queue<Node*>q;
+        q.push(root);
+        Node* temp;
+        while(!q.empty()){
+            temp=q.front();
+            q.pop();
+            
+            ans.push_back(temp->data);
+            
+            if(temp->left!=NULL){
+                q.push(temp->left);
+            }
+            
+             if(temp->right!=NULL){
+                q.push(temp->right);
+            }
+        }
+       // return ans;
+    }
     public:
     //Function to return the level order traversal of a tree.
     vector<int> levelOrder(Node* root)
     {
       //Your code here
-      
       vector<int>ans;
-      if(root==NULL)return ans;
-      
-      queue<Node*>q;
-      q.push(root);
-      
-      while(!q.empty()){
-          int size=q.size();
-          
-          
-          vector<int>level;
-          
-          for(int i=0; i<size;i++){
-              Node* val=q.front();
-              q.pop();
-              
-              
-              if(val->left!=NULL){
-                  q.push(val->left);
-              }
-              
-              if(val->right!=NULL){
-                  q.push(val->right);
-              }
-              
-             // level.push_back(val->data);
-             
-             ans.push_back(val->data);
-          }
-          
-          
-      }
-      
-      
-       return ans;
-      
-      
+      level(root,ans);
+      return ans;
     }
 };
-
 
 //{ Driver Code Starts.
 
