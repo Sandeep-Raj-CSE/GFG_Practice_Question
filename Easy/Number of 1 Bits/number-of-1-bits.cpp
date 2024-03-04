@@ -5,10 +5,18 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int setBits(int n ) {
+    int setBits(int n) {
         // Write Your Code here
+        // remove last bit
         
-        int ans=__builtin_popcount(n);
+        int ans=0;
+        
+        while (n >0){
+            if(n%2==1){
+                ans++;
+            }
+            n=n/2;
+        }
         
         return ans;
     }
