@@ -6,45 +6,54 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
-    bool detect(int src,vector<int>adj[],int vis[]){
-        vis[src]=1;
+    
+    bool cyclefind(int node , int parent , vector<int>adj[] , vector<bool>&visited){
         
-        // queue
-        queue<pair<int,int>>q;
-        q.push({src,-1});
-        while(!q.empty()){
-            int node=q.front().first;
-            int parent=q.front().second;
+        visited[node]= 1;
+        
+        for(int i=0; i< adj[node].size();i++){
             
-            q.pop();
-            
-            for(auto it:adj[node]){
-                if(!vis[it]){
-                    vis[it]=1;
-                    q.push({it,node});
-                }else{
-                    if(parent!=it){
-                        return true;
-                    }
-                }
+            if(parent == adj[node][i]){
+                continue;
             }
+            
+            
+            if(visited[adj[node][i]]){
+                return true;
+            }
+            
+            
+            if(cyclefind(adj[node][i], node , adj , visited)==1){
+                return 1;
+            }
+            
+            
+        
         }
-        return false;
+        
+        return 0;
+        
     }
-    bool isCycle(int V, vector<int> adj[]) {
+    
+    
+    bool isCycle(int v, vector<int> adj[]) {
         // Code here
         
-        int vis[V]={0};
+        vector<bool>visited(v,0);
         
-        for(int i=0; i<V;i++){
-            if(!vis[i]){
-                if(detect(i,adj,vis)==true){
-                    return true;
+        
+        for(int i=0; i <v ;i++){
+            
+            if(!visited[i]){
+                
+                if(cyclefind(i, -1 , adj , visited)){
+                    return 1;
                 }
+                
             }
         }
+        return  0;
         
-        return false;
     }
 };
 
