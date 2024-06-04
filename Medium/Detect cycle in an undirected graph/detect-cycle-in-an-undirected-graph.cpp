@@ -7,31 +7,74 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     
-    bool cyclefind(int node , int parent , vector<int>adj[] , vector<bool>&visited){
+    // bool cyclefind(int node , int parent , vector<int>adj[] , vector<bool>&visited){
         
-        visited[node]= 1;
+    //     visited[node]= 1;
         
-        for(int i=0; i< adj[node].size();i++){
+    //     for(int i=0; i< adj[node].size();i++){
             
-            if(parent == adj[node][i]){
-                continue;
-            }
-            
-            
-            if(visited[adj[node][i]]){
-                return true;
-            }
+    //         if(parent == adj[node][i]){
+    //             continue;
+    //         }
             
             
-            if(cyclefind(adj[node][i], node , adj , visited)==1){
-                return 1;
-            }
+    //         if(visited[adj[node][i]]){
+    //             return true;
+    //         }
+            
+            
+    //         if(cyclefind(adj[node][i], node , adj , visited)==1){
+    //             return 1;
+    //         }
             
             
         
+    //     }
+        
+    //     return 0;
+        
+    // }
+    
+    
+    // BFS
+    
+    bool BFS(int i, vector<bool>&visited, vector<int> adj[]){
+        
+        queue<pair<int,int>> q;
+        visited[i]=1;
+        
+        q.push(make_pair(i, -1)); // node , parent
+        
+        while(!q.empty()){
+            int node = q.front().first;
+            int parent = q.front().second;
+            
+            q.pop();
+            
+            for(int i=0; i<adj[node].size();i++){
+                
+                // parent ka ignore karo bsdk
+                
+                if(parent == adj[node][i]){
+                    continue;
+                }
+                
+                // agar visited mil gya bc to return 1 kar bkl
+                
+                if(visited[adj[node][i]]==1){
+                    return 1;
+                }
+                
+                
+                visited[adj[node][i]]=1;
+                
+                q.push({adj[node][i], node});
+            }
         }
         
         return 0;
+        
+        
         
     }
     
@@ -42,17 +85,30 @@ class Solution {
         vector<bool>visited(v,0);
         
         
-        for(int i=0; i <v ;i++){
+        for(int i=0; i<v;i++){
             
             if(!visited[i]){
-                
-                if(cyclefind(i, -1 , adj , visited)){
+                if(BFS(i, visited, adj)==1){
                     return 1;
                 }
-                
             }
         }
-        return  0;
+        
+        return 0;
+       
+        
+        
+        // for(int i=0; i <v ;i++){
+            
+        //     if(!visited[i]){
+                
+        //         if(cyclefind(i, -1 , adj , visited)){
+        //             return 1;
+        //         }
+                
+        //     }
+        // }
+        // return  0;
         
     }
 };
