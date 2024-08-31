@@ -17,7 +17,7 @@ class Solution {
         
         // sort
         
-        sort(arr.begin(), arr.end());
+       /* sort(arr.begin(), arr.end());
         
         int Largest= arr[arr.size()-1];
         
@@ -36,6 +36,52 @@ class Solution {
             return secondLargest;
         }
         return -1;
+        
+        */
+        
+        // Better solution T.C = 0(2N)
+        
+        // find the lagest element
+        
+      /*  int lar= arr[0];
+        
+        for(int i=0; i<arr.size();i++){
+            if(arr[i] > lar){
+                lar = arr[i];
+            }
+        }
+        
+        
+        int slar=-1;
+        
+        for(int i=0; i<arr.size();i++){
+            
+            if(arr[i] > slar && arr[i]!=lar){
+                slar=arr[i];
+            }
+        }
+        
+        return slar;
+        
+        
+        */
+        
+        // Better solution
+        
+        int lar= arr[0];
+        int slar=-1;
+        
+        for(int i=0; i<arr.size();i++){
+            
+            if(arr[i] > lar){
+                slar=lar;
+                lar=arr[i];
+            }else if(arr[i] < lar &&  arr[i] > slar){
+                slar=arr[i];
+            }
+        }
+        
+        return slar;
     }
 };
 
